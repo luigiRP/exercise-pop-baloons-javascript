@@ -1,18 +1,34 @@
 // we declare a new global variable containing an array that represents the ballons map
-let ballonsMap = ['green'];
+let ballonsMap = ['red', 'green' ,'blue',  'green', 'pink', 
+'green', 'orange', 'yellow', 'red', 'black', 
+'green', 'red', 'purple', 'brown', 'green', 
+'pink', 'purple', 'red', 'black', 'red' ];
 let activeBalloons = 20;
 
 // poping a balloon is basically turning his color to null (no color)
 const popBalloon = (position) => {
     // set the color to null on the balloon position
+    ballonsMap[position]=null;
+    activeBalloons--;
+    
     render();
+    
 }
 
 const render = () => {
     
     // convert ballons map of colors into real html balloons
     const ballons = ballonsMap.map((color, position) => {
-        return `<div class="balloon active"></div>`; // <--- render each balloon
+        let active;
+        if (ballonsMap[position]==null) {
+         active="popped"
+        }
+        else {
+         active="active"
+        }
+        
+
+        return `<div style="background: ${color}" class="balloon ${active}" onClick=popBalloon(${position})></div>`; // <--- render each balloon
     });
 
     document.querySelector("#balloon-count").innerHTML = activeBalloons; // <-- rende the balloon count into the DOM
